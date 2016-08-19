@@ -18,7 +18,8 @@ module.exports = [
 	},
 	{
 		test: /\.svg?$/i,
-		loader: 'svg-react-loader?raw=true!image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
+		loader: 'raw!image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
+		// loader: 'svg-react-loader?raw=true!image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
 	},	
 	// {
 	// 	test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,

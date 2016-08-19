@@ -1,33 +1,30 @@
 import React from 'react';
 import { render } from 'react-dom';
 import OriginalSVG from './flag.svg';
-import Flag from './loaderRawFlag.jsx'
+import Candidate from './Candidate.jsx';
 
 class App extends React.Component {
   componentWillMount() {
     console.log(OriginalSVG); // Output here so we can steal the raw code and use it to make loaderRawFlag.jsx
-    this.setState({
-      fill:{
-        circle: '#00dc00',
-        square: 'black'
-      }
-    });
+    this.setState({});
   }
  
   render() {
     const change = (target) => (event) => {
-      const { ...newFill } = this.state.fill;
-      newFill[target] = this.refs[target].value;
-      this.setState({fill:newFill});
+      const newProps = {};
+      newProps[target] = this.refs[target].value;
+      this.setState(newProps);
     }
-    
     
     return (
       <div>
-        <h1>Here's a flag (and a contrived scenario)</h1>
+        <h1>Here's a svg image (and a contrived scenario)</h1>
         <h3>It comes from svg. I took the raw=true output from the loader and put some property assignments in it.</h3>
         <h3>This allows the svg colors to be directly influenced by react at render time.</h3>
         <h3>Can we 'tweak' the loader to allow this to happen without the manual steps?</h3>
+        <h3> I've made a Candidate.jsx file to illustrate one way that this could be made to work if the loader could support it</h3>
+        <h3> Notice how on initial load the svg has it's 'as created' (grey/purple) colors in place, and they're not overridden by 
+        the undefined attributes passed as props</h3>
         <div>
           Square: <select 
             ref="square" 
@@ -43,7 +40,10 @@ class App extends React.Component {
           </select>
           <h3>Current this.state = {JSON.stringify(this.state)}</h3>
         </div>
-        <Flag fill={this.state.fill} style={{height:'600px', width:'600px'}}/>
+        <Candidate 
+            attributes={{0:{fill:this.state.square}, 1:{fill:this.state.circle}}}
+            style={{height:'600px', width:'600px'}}
+        />
       </div>
     )
   }
